@@ -1,8 +1,8 @@
 const movies = [];
 
-function movieRating(movie, isVoted)
+function movieRating(movie, isUpvoted)
 {
-    const change = isVote ? 1 : -1;
+    const change = isUpvoted ? 1 : -1;
 
     if (movie.rating === "unrated")
     {
@@ -12,6 +12,34 @@ function movieRating(movie, isVoted)
     {
         movie.rating += change;
     }    
+}
+
+function renderMovies()
+{
+    const movieList = document.getElementById("movieList");
+    movieList.innerHTML = "";
+
+    movies.forEach(movie, index) =>
+    {
+    const li = document.createElement("li");
+    li.textContent = `${movie.title} - Betyg: ${movie.rating}`;
+
+    const upBtn = document.createElement("button");
+    upBtn.textContent = " +1";
+    upBtn.onclick = () => 
+    {
+        movieRating(index, true);
+        renderMovies();
+    };
+
+    const upBtn = document.createElement("button");
+    upBtn.textContent = " -1";
+    upBtn.onclick = () => 
+    {
+        movieRating(index, false);
+        renderMovies();
+    };
+
 }
 
 //"dummy"-filmer
