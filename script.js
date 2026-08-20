@@ -44,7 +44,7 @@ function renderMovies()
 
 //"dummy"-filmer
 document.addEventListener('DOMContentLoaded', () => {
-    const filmer = ['Inception', 'The Matrix', 'Interstellar'];
+   // const filmer = ['Inception', 'The Matrix', 'Interstellar'];
     const ul = document.getElementById('movieList');
 
     ul.innerHTML = filmer.map(film => `<li>${film}</li>`).join('');
@@ -76,28 +76,49 @@ button.addEventListener('click', () => {
     }
 });
 
-// SLUT Slumpa en film
+
+    // Funktion för att lägga till en film (med mindre knapp på samma rad)
 function laggTillFilm() {
-            // 1. Hämta texten från textfältet
-            const inputfält = document.getElementById("filmInmatning");
-            const filmTitel = inputfält.value.trim();
+    const inputfält = document.getElementById("filmInmatning");
+    const filmTitel = inputfält.value.trim();
 
-            // 2. Validera att fältet inte är tomt
-            if (filmTitel === "") {
-                alert("Du måste skriva en filmtitel!");
-                return;
-            }
+    if (filmTitel === "") {
+        alert("Du måste skriva en filmtitel!");
+        return;
+    }
 
-            // 3. Hämta den befintliga listan (ul)
-            const lista = document.getElementById("movieList");
+    const lista = document.getElementById("movieList");
+    const nyttListelement = document.createElement("li");
+    
+    // 1. Gör så att listelementet använder Flexbox för att lägga allt på en rad
+    nyttListelement.style.display = "flex";
+    nyttListelement.style.alignItems = "center";
+    nyttListelement.style.gap = "10px"; // Ger ett lagom mellanrum mellan text och knapp
+    nyttListelement.style.marginBottom = "5px"; // Lite mellanrum till nästa film
 
-            // 4. Skapa ett nytt listelement (li)
-            const nyttListelement = document.createElement("li");
-            nyttListelement.textContent = filmTitel;
+    // 2. Lägg till filmens text
+    const textNod = document.createTextNode(filmTitel);
+    nyttListelement.appendChild(textNod);
 
-            // 5. Lägg till det nya elementet i listan
-            lista.appendChild(nyttListelement);
+    // 3. Skapa själva "Ta bort"-knappen
+    const taBortKnapp = document.createElement("button");
+    taBortKnapp.textContent = "❌";
 
-            // 6. Töm textfältet för nästa inskrivning
-            inputfält.value = "";
-        }
+    // 4. Återställ knappens storlek så den inte blir gigantisk
+    taBortKnapp.style.width = "auto";
+    taBortKnapp.style.height = "auto";
+    taBortKnapp.style.padding = "2px 6px"; // Gör knappen liten och nätt
+    taBortKnapp.style.fontSize = "12px";   // Minskar storleken på krysset
+    taBortKnapp.style.display = "inline-block";
+
+    // 5. Ge knappen funktionen att radera listelementet
+    taBortKnapp.onclick = function() {
+        nyttListelement.remove();
+    };
+
+    // 6. Lägg till knappen i listelementet, och listelementet i listan
+    nyttListelement.appendChild(taBortKnapp);
+    lista.appendChild(nyttListelement);
+
+    inputfält.value = "";
+}
