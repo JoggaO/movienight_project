@@ -1,8 +1,17 @@
 const movies = [];
 
-function movieRating()
+function movieRating(movie, isVoted)
 {
-    
+    const change = isVote ? 1 : -1;
+
+    if (movie.rating === "unrated")
+    {
+        movie.rating = change;
+    }
+    else
+    {
+        movie.rating += change;
+    }    
 }
 function laggTillFilm() {
             // 1. Hämta texten från textfältet
