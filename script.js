@@ -22,3 +22,25 @@ function laggTillFilm() {
             // 6. Töm textfältet för nästa inskrivning
             inputfält.value = "";
         }
+
+    // 1. Koppla en händelse (click) till din slumpknapp
+document.getElementById("randomButton").addEventListener("click", function() {
+    
+    // 2. Hämta alla <li>-element inuti din filmlista
+    const filmer = document.querySelectorAll("#movieList li");
+    
+    // 3. Kontrollera att det faktiskt finns filmer i listan
+    if (filmer.length === 0) {
+        document.getElementById("result").textContent = "Listan är tom! Lägg till en film först.";
+        return;
+    }
+    
+    // 4. Generera ett slumpmässigt index baserat på antal filmer
+    const slumpIndex = Math.floor(Math.random() * filmer.length);
+    
+    // 5. Hämta texten från den slumpade filmen
+    const valdFilm = filmer[slumpIndex].textContent;
+    
+    // 6. Visa resultatet i din div på skärmen
+    document.getElementById("result").textContent = "Ikväll tittar ni på: " + valdFilm;
+});
