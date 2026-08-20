@@ -33,8 +33,8 @@ function renderMovies()
     };
 
     const downBtn = document.createElement("button");
-    upBtn.textContent = " -1";
-    upBtn.onclick = () => 
+    downBtn.textContent = " -1";
+    downBtn.onclick = () => 
     {
         movieRating(index, false);
         renderMovies();
@@ -53,6 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const ul = document.getElementById('movieList');
 
     ul.innerHTML = filmer.map(film => `<li>${film}</li>`).join('');
+    movies.push({title:'Inception', rating: "unrated"}, {title:'The Matrix', rating: "unrated"}, {title:'Interstellar', rating: "unrated"})
+    renderMovies();
 });
 //Slut "dummy"-filmer
 
