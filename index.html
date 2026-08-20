@@ -11,27 +11,16 @@
 <body>
     <div class="container">
         <h1>Filmkväll</h1>
-        <input type="text" placeholder="Skriv en film">
-        <button>Lägg till</button>
-        <button>Slumpa film</button>
+        <input type="text" id="filmInmatning" placeholder="Skriv en film">
+        <button onclick="laggTillFilm()" >Lägg till</button>
+        <button id="randomButton">Slumpa film</button>
     </div>
-
-    <h1> Filmkväll</h1>
-    <div style="margin-top: 20px;">
-        <input type="text" id="filmInmatning" placeholder="Skriv en filmtitel...">
-        <button onclick="laggTillFilm()">Lägg till film</button>
-    </div>
-    
     <ul id="movieList">
         <li>IT</li>
         <li>Evil Dead</li>
         <li>The Dark Knight</li>
         <li>The Walking Dead season 1-11</li>
     </ul>
-
-    <button id="randomButton">
-        Slumpa film
-    </button>
     <div id="result"></div>
     
     <script src="script.js"></script>
