@@ -1,6 +1,6 @@
 //"dummy"-filmer
 document.addEventListener('DOMContentLoaded', () => {
-    const filmer = ['Inception', 'The Matrix', 'Interstellar'];
+   // const filmer = ['Inception', 'The Matrix', 'Interstellar'];
     const ul = document.getElementById('movieList');
 
     ul.innerHTML = filmer.map(film => `<li>${film}</li>`).join('');
@@ -32,28 +32,36 @@ button.addEventListener('click', () => {
     }
 });
 
-// SLUT Slumpa en film
+
+    // Funktion för att lägga till en film (uppdaterad med ta bort-knapp)
 function laggTillFilm() {
-            // 1. Hämta texten från textfältet
-            const inputfält = document.getElementById("filmInmatning");
-            const filmTitel = inputfält.value.trim();
+    const inputfält = document.getElementById("filmInmatning");
+    const filmTitel = inputfält.value.trim();
 
-            // 2. Validera att fältet inte är tomt
-            if (filmTitel === "") {
-                alert("Du måste skriva en filmtitel!");
-                return;
-            }
+    if (filmTitel === "") {
+        alert("Du måste skriva en filmtitel!");
+        return;
+    }
 
-            // 3. Hämta den befintliga listan (ul)
-            const lista = document.getElementById("movieList");
+    const lista = document.getElementById("movieList");
+    const nyttListelement = document.createElement("li");
+    
+    // 1. Lägg till filmens text
+    nyttListelement.textContent = filmTitel + " ";
 
-            // 4. Skapa ett nytt listelement (li)
-            const nyttListelement = document.createElement("li");
-            nyttListelement.textContent = filmTitel;
+    // 2. Skapa själva "Ta bort"-knappen
+    const taBortKnapp = document.createElement("button");
+    taBortKnapp.textContent = "❌";
+    taBortKnapp.style.marginLeft = "10px"; // Ger lite mellanrum mellan text och knapp
 
-            // 5. Lägg till det nya elementet i listan
-            lista.appendChild(nyttListelement);
+    // 3. Ge knappen en funktion som raderar just detta listelement
+    taBortKnapp.onclick = function() {
+        nyttListelement.remove();
+    };
 
-            // 6. Töm textfältet för nästa inskrivning
-            inputfält.value = "";
-        }
+    // 4. Lägg till knappen inuti listelementet, och listelementet i listan
+    nyttListelement.appendChild(taBortKnapp);
+    lista.appendChild(nyttListelement);
+
+    inputfält.value = "";
+}
