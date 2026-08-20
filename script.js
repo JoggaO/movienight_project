@@ -33,7 +33,7 @@ button.addEventListener('click', () => {
 });
 
 
-    // Funktion för att lägga till en film (uppdaterad med ta bort-knapp)
+    // Funktion för att lägga till en film (med mindre knapp på samma rad)
 function laggTillFilm() {
     const inputfält = document.getElementById("filmInmatning");
     const filmTitel = inputfält.value.trim();
@@ -46,20 +46,33 @@ function laggTillFilm() {
     const lista = document.getElementById("movieList");
     const nyttListelement = document.createElement("li");
     
-    // 1. Lägg till filmens text
-    nyttListelement.textContent = filmTitel + " ";
+    // 1. Gör så att listelementet använder Flexbox för att lägga allt på en rad
+    nyttListelement.style.display = "flex";
+    nyttListelement.style.alignItems = "center";
+    nyttListelement.style.gap = "10px"; // Ger ett lagom mellanrum mellan text och knapp
+    nyttListelement.style.marginBottom = "5px"; // Lite mellanrum till nästa film
 
-    // 2. Skapa själva "Ta bort"-knappen
+    // 2. Lägg till filmens text
+    const textNod = document.createTextNode(filmTitel);
+    nyttListelement.appendChild(textNod);
+
+    // 3. Skapa själva "Ta bort"-knappen
     const taBortKnapp = document.createElement("button");
     taBortKnapp.textContent = "❌";
-    taBortKnapp.style.marginLeft = "10px"; // Ger lite mellanrum mellan text och knapp
 
-    // 3. Ge knappen en funktion som raderar just detta listelement
+    // 4. Återställ knappens storlek så den inte blir gigantisk
+    taBortKnapp.style.width = "auto";
+    taBortKnapp.style.height = "auto";
+    taBortKnapp.style.padding = "2px 6px"; // Gör knappen liten och nätt
+    taBortKnapp.style.fontSize = "12px";   // Minskar storleken på krysset
+    taBortKnapp.style.display = "inline-block";
+
+    // 5. Ge knappen funktionen att radera listelementet
     taBortKnapp.onclick = function() {
         nyttListelement.remove();
     };
 
-    // 4. Lägg till knappen inuti listelementet, och listelementet i listan
+    // 6. Lägg till knappen i listelementet, och listelementet i listan
     nyttListelement.appendChild(taBortKnapp);
     lista.appendChild(nyttListelement);
 
