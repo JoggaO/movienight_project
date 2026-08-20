@@ -10,71 +10,74 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Slumpa en film
 // Välj och returnera en filmtext
-function getRandomMovieText() {
-    const movies = document.querySelectorAll('#movieList li');
-    if (movies.length === 0) return null;
-
-    const randomIndex = Math.floor(Math.random() * movies.length);
-    return movies[randomIndex].textContent;
+// 1. Function to select a random movie
+document.getElementById("randomButton").addEventListener("click", function() {
+    const movies = document.querySelectorAll("#movieList li");
+    const resultDisplay = document.getElementById("result");
     
-}
-
-const button = document.getElementById('randomButton');
-
-button.addEventListener('click', () => {
-    const selectedMovie = getRandomMovieText();
-    const resultDiv = document.getElementById('result');
-
-    if (selectedMovie) {
-        resultDiv.textContent = "Din random film är" + selectedMovie;
-    } else {
-        resultDiv.textContent = "Listan är tom!";
+    // Check if the list is empty
+    if (movies.length === 0) {
+        resultDisplay.textContent = "The list is empty! Please add a movie first.";
+        return;
     }
+    
+    // Generate a random index
+    const randomIndex = Math.floor(Math.random() * movies.length);
+    
+    // Get only the movie title text (ignore the delete button)
+    const selectedMovie = movies[randomIndex].firstChild.textContent.trim();
+    
+    // Display the result
+    resultDisplay.textContent = "Your random movie is: " + selectedMovie;
 });
 
+// 2. Function to add a new movie to the list
+function addMovie() {
+    const inputField = document.getElementById("filmInmatning"); // Keep HTML ID or change in index.html too
+    const movieTitle = inputField.value.trim();
 
-    // Funktion för att lägga till en film (med mindre knapp på samma rad)
-function laggTillFilm() {
-    const inputfält = document.getElementById("filmInmatning");
-    const filmTitel = inputfält.value.trim();
-
-    if (filmTitel === "") {
-        alert("Du måste skriva en filmtitel!");
+    // Validate input
+    if (movieTitle === "") {
+        alert("You must enter a movie title!");
         return;
     }
 
-    const lista = document.getElementById("movieList");
-    const nyttListelement = document.createElement("li");
+    const movieList = document.getElementById("movieList");
+    const newListItem = document.createElement("li");
     
-    // 1. Gör så att listelementet använder Flexbox för att lägga allt på en rad
-    nyttListelement.style.display = "flex";
-    nyttListelement.style.alignItems = "center";
-    nyttListelement.style.gap = "10px"; // Ger ett lagom mellanrum mellan text och knapp
-    nyttListelement.style.marginBottom = "5px"; // Lite mellanrum till nästa film
+    // Style the list item to keep text and button on the same line
+    newListItem.style.display = "flex";
+    newListItem.style.alignItems = "center";
+    newListItem.style.gap = "10px";
+    newListItem.style.marginBottom = "5px";
 
-    // 2. Lägg till filmens text
-    const textNod = document.createTextNode(filmTitel);
-    nyttListelement.appendChild(textNod);
+    // Add the movie title text
+    const textNode = document.createTextNode(movieTitle);
+    newListItem.appendChild(textNode);
 
-    // 3. Skapa själva "Ta bort"-knappen
-    const taBortKnapp = document.createElement("button");
-    taBortKnapp.textContent = "❌";
+    // Create the delete button
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "❌";
 
-    // 4. Återställ knappens storlek så den inte blir gigantisk
-    taBortKnapp.style.width = "auto";
-    taBortKnapp.style.height = "auto";
-    taBortKnapp.style.padding = "2px 6px"; // Gör knappen liten och nätt
-    taBortKnapp.style.fontSize = "12px";   // Minskar storleken på krysset
-    taBortKnapp.style.display = "inline-block";
+    // Adjust button size
+    deleteButton.style.width = "auto";
+    deleteButton.style.height = "auto";
+    deleteButton.style.padding = "2px 6px";
+    deleteButton.style.fontSize = "12px";
+    deleteButton.style.display = "inline-block";
 
-    // 5. Ge knappen funktionen att radera listelementet
-    taBortKnapp.onclick = function() {
-        nyttListelement.remove();
+    // Add delete functionality
+    deleteButton.onclick = function() {
+        newListItem.remove();
     };
 
-    // 6. Lägg till knappen i listelementet, och listelementet i listan
-    nyttListelement.appendChild(taBortKnapp);
-    lista.appendChild(nyttListelement);
+    // Append button to item, and item to list
+    newListItem.appendChild(deleteButton);
+    movieList.appendChild(newListItem);
 
-    inputfält.value = "";
+    // Clear input field
+    inputField.value = "";
+
+    // Clear the random result message when a new movie is added
+    document.getElementById("result").textContent = "";
 }
