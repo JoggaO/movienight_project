@@ -1,22 +1,33 @@
-<html>
+<!DOCTYPE html>
+<html lang="sv">
 
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filmlista</title>
 </head>
 
 <body>
 
     <h1> Filmkväll</h1>
-    <input id="movieInput" placeholder="Skriv en film">
-    <button id="addMovieButton">
-        Lägg till
-    </button>
+    <div style="margin-top: 20px;">
+        <input type="text" id="filmInmatning" placeholder="Skriv en filmtitel...">
+        <button onclick="laggTillFilm()">Lägg till film</button>
+    </div>
+    
     <ul id="movieList">
+        <li>IT</li>
+        <li>Evil Dead</li>
+        <li>The Dark Knight</li>
+        <li>The Walking Dead season 1-11</li>
     </ul>
+
     <button id="randomButton">
         Slumpa film
     </button>
     <div id="result"></div>
+    
+    <script src="script.js"></script>
 
 </body>
 
