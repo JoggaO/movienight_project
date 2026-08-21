@@ -61,50 +61,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Slumpa en film
 // Välj och returnera en filmtext
-function getRandomMovieText() {
-    const movies = document.querySelectorAll('#movieList li');
-    if (movies.length === 0) return null;
+// 1. Function to select a random movie
+document.getElementById("randomButton").addEventListener("click", function() 
+{
+    const movies = document.querySelectorAll("#movieList li");
+    const resultDisplay = document.getElementById("result");
+    
+    // Check if the list is empty
+    if (movies.length === 0) {
+        resultDisplay.textContent = "The list is empty! Please add a movie first.";
+        return;
+    }
 
     const randomIndex = Math.floor(Math.random() * movies.length);
-    return movies[randomIndex].textContent;
-    
-}
+    const selectedMovie = movies[randomIndex].firstChild.textContent.trim();
+    resultDisplay.textContent = "Your random movie is: " + selectedMovie;
 
-const button = document.getElementById('randomButton');
-
-button.addEventListener('click', () => {
-    const selectedMovie = getRandomMovieText();
-    const resultDiv = document.getElementById('result');
-
-    if (selectedMovie) {
-        resultDiv.textContent = "Din random film är" + selectedMovie;
-    } else {
-        resultDiv.textContent = "Listan är tom!";
-    }
 });
 
-// SLUT Slumpa en film
-function laggTillFilm() {
-            // 1. Hämta texten från textfältet
-            const inputfält = document.getElementById("filmInmatning");
-            const filmTitel = inputfält.value.trim();
+// 2. Function to add a new movie to the list
+function addMovie()
+{
+    const inputField = document.getElementById("filmInmatning"); // Keep HTML ID or change in index.html too
+    const movieTitle = inputField.value.trim();
 
-            // 2. Validera att fältet inte är tomt
-            if (filmTitel === "") {
-                alert("Du måste skriva en filmtitel!");
-                return;
-            }
+    // Validate input
+    if (movieTitle === "") {
+        alert("You must enter a movie title!");
+        return;
+    }
 
-            // 3. Hämta den befintliga listan (ul)
-            const lista = document.getElementById("movieList");
+    const movieList = document.getElementById("movieList");
+    const newListItem = document.createElement("li");
+    
+    // Style the list item to keep text and button on the same line
+    newListItem.style.display = "flex";
+    newListItem.style.alignItems = "center";
+    newListItem.style.gap = "10px";
+    newListItem.style.marginBottom = "5px";
 
-            // 4. Skapa ett nytt listelement (li)
-            const nyttListelement = document.createElement("li");
-            nyttListelement.textContent = filmTitel;
+    // Add the movie title text
+    const textNode = document.createTextNode(movieTitle);
+    newListItem.appendChild(textNode);
 
-            // 5. Lägg till det nya elementet i listan
-            lista.appendChild(nyttListelement);
+    // Create the delete button
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "❌";
 
-            // 6. Töm textfältet för nästa inskrivning
-            inputfält.value = "";
-        }
+    // Adjust button size
+    deleteButton.style.width = "auto";
+    deleteButton.style.height = "auto";
+    deleteButton.style.padding = "2px 6px";
+    deleteButton.style.fontSize = "12px";
+    deleteButton.style.display = "inline-block";
+
+    // Add delete functionality
+    deleteButton.onclick = function() {
+        newListItem.remove();
+    };
+
+    // Append button to item, and item to list
+    newListItem.appendChild(deleteButton);
+    movieList.appendChild(newListItem);
+
+    // Clear input field
+    inputField.value = "";
+
+    // Clear the random result message when a new movie is added
+    document.getElementById("result").textContent = "";
+}
