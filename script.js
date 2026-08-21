@@ -26,7 +26,7 @@ button.addEventListener('click', () => {
     const resultDiv = document.getElementById('result');
 
     if (selectedMovie) {
-        resultDiv.textContent = "Din random film är" + selectedMovie;
+        resultDiv.textContent = "Din random film är " + selectedMovie;
     } else {
         resultDiv.textContent = "Listan är tom!";
     }

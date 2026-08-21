@@ -1,24 +1,41 @@
 <!DOCTYPE html>
 <html lang="sv">
-
 <head>
-<link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filmlista</title>
+    <title>Filmkväll</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div class="container">
-        <h1>Filmkväll</h1>
-        <input type="text" id="filmInmatning" placeholder="Skriv en film">
-        <button onclick="laggTillFilm()" >Lägg till</button>
-        <button id="randomButton">Slumpa film</button>
+
+    <div class="app-layout">
+        
+        
+        <div class="container">
+            <h1>Filmkväll</h1>
+            <input type="text" id="filmInmatning" placeholder="Skriv en film">
+            <button onclick="laggTillFilm()">Lägg till</button>
+            <button id="randomButton">Slumpa film</button>
+        </div>
+
+        
+        <div class="container unique-movie-container">
+            <h2>Dina filmer</h2>
+            <div class="movie-list-scroll">
+                <ul id="movieList">
+                    <!-- Filmerna renderas via JavaScript -->
+                </ul>
+            </div>
+        </div>
+
+        
+        <div class="container result-container">
+            <h2>Ditt val</h2>
+            <div id="result" class="random-result-box">Ingen film slumpad än</div>
+        </div>
+
     </div>
-    <ul id="movieList">
-    </ul>
-    <div id="result"></div>
+
     <script src="script.js"></script>
 </body>
-
 </html>
