@@ -1,6 +1,6 @@
 //"dummy"-filmer
 document.addEventListener('DOMContentLoaded', () => {
-   // const filmer = ['Inception', 'The Matrix', 'Interstellar'];
+    const filmer = ['Inception', 'The Matrix', 'Interstellar'];
     const ul = document.getElementById('movieList');
 
     ul.innerHTML = filmer.map(film => `<li>${film}</li>`).join('');
@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // Slumpa en film
 // Välj och returnera en filmtext
 // 1. Function to select a random movie
-document.getElementById("randomButton").addEventListener("click", function() {
+document.getElementById("randomButton").addEventListener("click", function() 
+{
     const movies = document.querySelectorAll("#movieList li");
     const resultDisplay = document.getElementById("result");
     
@@ -19,32 +20,17 @@ document.getElementById("randomButton").addEventListener("click", function() {
     if (movies.length === 0) {
         resultDisplay.textContent = "The list is empty! Please add a movie first.";
         return;
-}
-
-const button = document.getElementById('randomButton');
-
-button.addEventListener('click', () => {
-    const selectedMovie = getRandomMovieText();
-    const resultDiv = document.getElementById('result');
-
-    if (selectedMovie) {
-        resultDiv.textContent = "Din random film är " + selectedMovie;
-    } else {
-        resultDiv.textContent = "Listan är tom!";
     }
-    
-    // Generate a random index
+
     const randomIndex = Math.floor(Math.random() * movies.length);
-    
-    // Get only the movie title text (ignore the delete button)
     const selectedMovie = movies[randomIndex].firstChild.textContent.trim();
-    
-    // Display the result
     resultDisplay.textContent = "Your random movie is: " + selectedMovie;
+
 });
 
 // 2. Function to add a new movie to the list
-function addMovie() {
+function addMovie()
+{
     const inputField = document.getElementById("filmInmatning"); // Keep HTML ID or change in index.html too
     const movieTitle = inputField.value.trim();
 
