@@ -19,6 +19,18 @@ document.getElementById("randomButton").addEventListener("click", function() {
     if (movies.length === 0) {
         resultDisplay.textContent = "The list is empty! Please add a movie first.";
         return;
+}
+
+const button = document.getElementById('randomButton');
+
+button.addEventListener('click', () => {
+    const selectedMovie = getRandomMovieText();
+    const resultDiv = document.getElementById('result');
+
+    if (selectedMovie) {
+        resultDiv.textContent = "Din random film är " + selectedMovie;
+    } else {
+        resultDiv.textContent = "Listan är tom!";
     }
     
     // Generate a random index
